@@ -1,0 +1,21 @@
+{
+  "name": "auth-challenge",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000a\u0000w\u0000s\u0000-\u0000n\u0000o\u0000d\u0000e\u0000-\u0000a\u0000g\u0000o\u0000-\u0000d\u0000e\u0000s\u0000a\u0000f\u0000i\u0000o\u0000-\u0000a\u0000u\u0000t\u0000h\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.6.0",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.2"
+  }
+}
