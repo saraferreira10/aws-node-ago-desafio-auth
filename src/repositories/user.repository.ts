@@ -1,11 +1,12 @@
-import User from '../model/user.model'
+import { ResultSetHeader } from 'mysql2'
 import connection from '../database/connection.database'
+import User from '../model/user.model'
 
 export default class UserRepository {
-  static async save(user: User) {
+  async save(user: User) {
     const { name, email, password, active } = user
 
-    await connection.execute(
+    return await connection.execute<ResultSetHeader>(
       'INSERT INTO users (name, email, password, active) VALUES (?, ?, ?, ?);',
       [name, email, password, active]
     )
