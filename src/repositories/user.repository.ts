@@ -4,11 +4,11 @@ import User from '../model/user.model'
 
 export default class UserRepository {
   async save(user: User) {
-    const { name, email, password, active } = user
+    const { name, email, password } = user
 
     return await connection.execute<ResultSetHeader>(
-      'INSERT INTO users (name, email, password, active) VALUES (?, ?, ?, ?);',
-      [name, email, password, active]
+      'INSERT INTO users (name, email, password) VALUES (?, ?, ?);',
+      [name, email, password]
     )
   }
 }
