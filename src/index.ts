@@ -13,7 +13,7 @@ app.use(router)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) =>
   res.status(500).json({
-    error: 'internal server error'
+    error: error.message || 'internal server error'
   })
 )
 

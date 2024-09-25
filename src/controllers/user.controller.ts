@@ -14,7 +14,11 @@ export default class UserController {
 
       return res.status(201).json({ id })
     } catch (e) {
-      next(e)
+      next(
+        new Error(
+          'oops, an internal error occurred and it was not possible to create this user'
+        )
+      )
     }
   }
 }
