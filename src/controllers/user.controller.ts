@@ -13,14 +13,8 @@ export default class UserController {
       const { id } = await this.userService.save(user)
 
       return res.status(201).json({ id })
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (e) {
-      next(
-        new Error(
-          'oops, an internal error occurred and it was not possible to create this user'
-        )
-      )
+    } catch (e: unknown) {
+      next(e)
     }
   }
 }
