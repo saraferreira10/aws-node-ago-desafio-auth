@@ -3,6 +3,8 @@ import connection from '../database/connection.database'
 import User from '../model/user.model'
 
 export default class UserRepository {
+  constructor() {}
+
   async save(user: User) {
     const { name, email, password } = user
 

@@ -1,15 +1,20 @@
-import { Request, Response } from 'express'
-import UserRepository from '../repositories/user.repository'
+import { NextFunction, Request, Response } from 'express'
 import User from '../model/user.model'
+import UserService from '../services/user.service'
 
 export default class UserController {
-  constructor(private repo: UserRepository) {}
+  constructor(private userService: UserService) {}
 
-  async post(req: Request, res: Response) {
-    const { name, email, password } = req.body
-    const user = new User(name, email, password)
+  post = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { name, email, password } = req.body
+      const user = new User(name, email, password)
 
-    const [result] = await this.repo.save(user)
-    res.status(201).json({ id: result.insertId })
+      const result = await this.userService.save(user)
+      console.log(result)
+      return res.status(201).json({ id: result.insertId })
+    } catch (e) {
+      next(e)
+    }
   }
 }
