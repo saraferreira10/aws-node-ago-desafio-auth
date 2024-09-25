@@ -20,3 +20,17 @@ export function checkRequiredFields(
 
   next()
 }
+
+export function checkIfEmailIsValid(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { email } = req.body
+  const regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.[a-zA-Z]/
+
+  if (!regex.test(email))
+    return res.status(400).json({ error: 'email is invalid' })
+
+  next()
+}

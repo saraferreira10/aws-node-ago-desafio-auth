@@ -2,7 +2,10 @@ import { Request, Response, Router } from 'express'
 import UserController from '../controllers/user.controller'
 import UserRepository from '../repositories/user.repository'
 import UserService from '../services/user.service'
-import { checkRequiredFields } from '../middlewares/user.middleware'
+import {
+  checkIfEmailIsValid,
+  checkRequiredFields
+} from '../middlewares/user.middleware'
 
 const router = Router()
 
@@ -10,7 +13,9 @@ const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
 const userController = new UserController(userService)
 
-router.route('/api/v1/users').post(checkRequiredFields, userController.post)
+router
+  .route('/api/v1/users')
+  .post(checkRequiredFields, checkIfEmailIsValid, userController.post)
 
 router.get('', (req: Request, res: Response) =>
   res.status(404).json({ status: 'error', message: 'resource not found' })
