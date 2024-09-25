@@ -1,16 +1,20 @@
 import { ResultSetHeader } from 'mysql2'
 import connection from '../database/connection.database'
 import User from '../model/user.model'
+import { randomUUID } from 'crypto'
 
 export default class UserRepository {
   constructor() {}
 
   async save(user: User) {
     const { name, email, password } = user
+    const id = randomUUID()
 
-    return await connection.execute<ResultSetHeader>(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?);',
-      [name, email, password]
+    const [result] = await connection.execute<ResultSetHeader>(
+      'INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?);',
+      [id, name, email, password]
     )
+
+    return { result, id }
   }
 }

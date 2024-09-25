@@ -5,7 +5,6 @@ export default class UserService {
   constructor(private userRepository: UserRepository) {}
 
   async save(user: User) {
-    const [result] = await this.userRepository.save(user)
-    return result
+    return await this.userRepository.save(user)
   }
 }

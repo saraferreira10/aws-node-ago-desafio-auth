@@ -10,9 +10,9 @@ export default class UserController {
       const { name, email, password } = req.body
       const user = new User(name, email, password)
 
-      const result = await this.userService.save(user)
-      console.log(result)
-      return res.status(201).json({ id: result.insertId })
+      const { id } = await this.userService.save(user)
+
+      return res.status(201).json({ id })
     } catch (e) {
       next(e)
     }
