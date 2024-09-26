@@ -26,4 +26,8 @@ export default class User {
   get active() {
     return this._active
   }
+
+  set password(password: string) {
+    this._password = password
+  }
 }
