@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(router)
 
+app.use('', (req: Request, res: Response) =>
+  res.status(404).json({ error: 'not found' })
+)
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof CustomError) {

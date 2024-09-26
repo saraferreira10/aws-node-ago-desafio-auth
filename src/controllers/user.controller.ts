@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import User from '../model/user.model'
 import UserService from '../services/user.service'
+import CustomError from '../types/error.type'
 
 export default class UserController {
   constructor(private userService: UserService) {}
@@ -14,7 +15,16 @@ export default class UserController {
 
       return res.status(201).json({ id })
     } catch (e: unknown) {
-      next(e)
+      if (e instanceof CustomError) {
+        return next(e)
+      }
+
+      next(
+        new CustomError(
+          500,
+          'oops, an internal error occurred and it was not possible to create this user'
+        )
+      )
     }
   }
 }
