@@ -33,3 +33,24 @@ export function checkIfEmailIsValid(
 
   next()
 }
+
+export function checkIfPasswordIsValid(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const password: string = req.body.password
+
+  if (
+    password.trim().length < 6 ||
+    !/[A-Za-z]/.test(password) ||
+    !/\d/.test(password)
+  ) {
+    throw new CustomError(
+      400,
+      'password must be at least 6 characters long with letters and numbers'
+    )
+  }
+
+  next()
+}

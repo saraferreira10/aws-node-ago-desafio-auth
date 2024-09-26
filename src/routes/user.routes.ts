@@ -4,6 +4,7 @@ import UserRepository from '../repositories/user.repository'
 import UserService from '../services/user.service'
 import {
   checkIfEmailIsValid,
+  checkIfPasswordIsValid,
   checkRequiredFields
 } from '../middlewares/user.middleware'
 
@@ -15,7 +16,12 @@ const userController = new UserController(userService)
 
 router
   .route('/api/v1/users')
-  .post(checkRequiredFields, checkIfEmailIsValid, userController.post)
+  .post(
+    checkRequiredFields,
+    checkIfEmailIsValid,
+    checkIfPasswordIsValid,
+    userController.post
+  )
 
 router.get('', (req: Request, res: Response) =>
   res.status(404).json({ status: 'error', message: 'resource not found' })
