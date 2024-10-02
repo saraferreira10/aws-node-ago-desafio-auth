@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
-import router from './routes/user.routes'
 import CustomError from './types/error.type'
+import userRouter from './routes/user.routes'
+import authRouter from './routes/auth.routes'
 
 const app = express()
 app.use(cors())
@@ -9,7 +10,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(router)
+app.use(userRouter)
+app.use(authRouter)
 
 app.use('', (req: Request, res: Response) =>
   res.status(404).json({ error: 'not found' })
