@@ -1,7 +1,7 @@
 import CustomError from '../types/error.type'
 import User from '../model/user.model'
 import UserRepository from '../repositories/user.repository'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import {
   isEmailValid,
   isPasswordValid,
