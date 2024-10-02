@@ -25,18 +25,16 @@ export default class UserRepository {
       [email]
     )
 
-    return result[0]
+    return result[0] as User
   }
 
   async authenticateUser(email: string, password: string) {
-    const [result] = await connection.execute<RowDataPacket[]>(
-      'SELECT * FROM users WHERE email = ?',
-      [email]
-    )
+    const user = await this.findByEmail(email)
 
-    if (result.length > 0)
-      return await bcrypt.compare(password, result[0].password)
+    if (!user) return false
 
-    return false
+    const comparePasswords = await bcrypt.compare(password, user.password)
+
+    return comparePasswords ? user : false
   }
 }
