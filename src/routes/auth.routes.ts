@@ -14,9 +14,13 @@ router.post('/api/v1/login', async (req: Request, res: Response) => {
 
   if (!user) return res.status(403).json({ error: 'invalid email or password' })
 
-  const accessToken = jwt.sign({ sub: user.id }, SECRET_KEY!, {
-    expiresIn: '10m'
-  })
+  const accessToken = jwt.sign(
+    { id: user.id, name: user.name, email: user.email },
+    SECRET_KEY!,
+    {
+      expiresIn: '10m'
+    }
+  )
 
   res.status(200).json({ accessToken, expiresIn: 600 })
 })
