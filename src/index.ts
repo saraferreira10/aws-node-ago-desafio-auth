@@ -3,6 +3,7 @@ import cors from 'cors'
 import CustomError from './types/error.type'
 import userRouter from './routes/user.routes'
 import authRouter from './routes/auth.routes'
+import createDefaultUser from './seed'
 
 const app = express()
 app.use(cors())
@@ -29,5 +30,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     error: 'internal server error'
   })
 })
+
+createDefaultUser()
 
 app.listen(3000, () => console.log('listening...'))
