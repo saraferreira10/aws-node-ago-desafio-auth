@@ -1,4 +1,6 @@
-export default class User {
+import UserInterface from './interfaces/user.interface'
+
+export default class User implements UserInterface {
   constructor(
     private _name: string,
     private _email: string,

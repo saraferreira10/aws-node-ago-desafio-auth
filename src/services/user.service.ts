@@ -1,15 +1,16 @@
 import CustomError from '../types/error.type'
 import User from '../model/user.model'
-import UserRepository from '../repositories/user.repository'
 import bcrypt from 'bcryptjs'
 import {
   isEmailValid,
   isPasswordValid,
   validateFields
 } from '../utils/user.utils'
+import UserRepositoryInterface from '../repositories/interfaces/user-repository.interface'
+import UserServiceInterface from './interfaces/user-service.interface'
 
-export default class UserService {
-  constructor(private userRepository: UserRepository) {}
+export default class UserService implements UserServiceInterface {
+  constructor(private userRepository: UserRepositoryInterface) {}
 
   async save(user: User) {
     const isUserFieldsValid = validateFields(user)

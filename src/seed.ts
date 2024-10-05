@@ -11,16 +11,16 @@ export default async function createDefaultUser() {
     const userRepository = new UserRepository()
     const userService = new UserService(userRepository)
     const user = new User(
-      DEFAULT_USER_NAME!,
-      DEFAULT_USER_EMAIL!,
-      DEFAULT_USER_PASSWORD!
+      DEFAULT_USER_NAME as string,
+      DEFAULT_USER_EMAIL as string,
+      DEFAULT_USER_PASSWORD as string
     )
     await userService.save(user)
   } catch (e: unknown) {
     if (e instanceof Error) {
       if (e instanceof CustomError && e.status === 409) return
 
-      console.log('error when creating defaul user:', e.message)
+      console.log('error when creating default user:', e.message)
     }
   }
 }

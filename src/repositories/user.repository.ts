@@ -1,13 +1,11 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2'
 import connection from '../database/connection.database'
-import User from '../model/user.model'
 import { randomUUID } from 'crypto'
-import bcrypt from 'bcryptjs'
+import UserRepositoryInterface from './interfaces/user-repository.interface'
+import UserInterface from '../model/interfaces/user.interface'
 
-export default class UserRepository {
-  constructor() {}
-
-  async save(user: User) {
+export default class UserRepository implements UserRepositoryInterface {
+  async save(user: UserInterface) {
     const { name, email, password } = user
     const id = randomUUID()
 
@@ -25,16 +23,6 @@ export default class UserRepository {
       [email]
     )
 
-    return result[0] as User
-  }
-
-  async authenticateUser(email: string, password: string) {
-    const user = await this.findByEmail(email)
-
-    if (!user) return false
-
-    const comparePasswords = await bcrypt.compare(password, user.password)
-
-    return comparePasswords ? user : false
+    return result[0] as UserInterface
   }
 }

@@ -1,28 +1,14 @@
-import { Request, Response, Router } from 'express'
-import UserRepository from '../repositories/user.repository'
-import jwt from 'jsonwebtoken'
+import { Router } from 'express'
+import AuthService from '../services/auth.service'
+import AuthRepository from '../repositories/auth.repository'
+import AuthController from '../controllers/auth.controller'
 
 const router = Router()
 
-const { SECRET_KEY } = process.env
+const authRepository = new AuthRepository()
+const authService = new AuthService(authRepository)
+const authController = new AuthController(authService)
 
-router.post('/api/v1/login', async (req: Request, res: Response) => {
-  const user = await new UserRepository().authenticateUser(
-    req.body.email,
-    req.body.password
-  )
-
-  if (!user) return res.status(403).json({ error: 'invalid email or password' })
-
-  const accessToken = jwt.sign(
-    { id: user.id, name: user.name, email: user.email },
-    SECRET_KEY!,
-    {
-      expiresIn: '10m'
-    }
-  )
-
-  res.status(200).json({ accessToken, expiresIn: 600 })
-})
+router.post('/api/v1/login', authController.login)
 
 export default router

@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 import User from '../model/user.model'
-import UserService from '../services/user.service'
 import CustomError from '../types/error.type'
+import UserServiceInterface from '../services/interfaces/user-service.interface'
 
 export default class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserServiceInterface) {}
 
   post = async (req: Request, res: Response, next: NextFunction) => {
     try {
